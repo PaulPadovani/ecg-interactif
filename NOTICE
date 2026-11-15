@@ -1,0 +1,20 @@
+Required Notice: Copyright © 2026 Paul Padovani.
+
+PÉRIMÈTRE DE LA LICENCE
+
+La licence PolyForm Noncommercial 1.0.0 (fichier LICENSE) s'applique au logiciel :
+HTML, CSS, JavaScript, script de préparation (tools/build_coro.py) et documentation,
+à l'exception des contenus listés ci-dessous.
+
+CONTENUS EXCLUS DE LA LICENCE POLYFORM
+
+1. Tracés ECG et figures (dossier img/)
+   Ces images proviennent du cours « ECG de l'enfant » et de sources tierces
+   (voir CREDITS.md). Elles restent la propriété de leurs auteurs respectifs.
+   Aucune licence n'est accordée pour leur réutilisation en dehors de cet outil.
+
+2. Coronarographies (tools/coro-src/ et images dérivées contenues dans js/coro-data.js)
+   Images issues de Wikimedia Commons, sous licence Creative Commons
+   Attribution – Partage dans les mêmes conditions (CC BY-SA 3.0 et 4.0).
+   Les images dérivées (fond reconstruit, carte d'opacification) sont diffusées
+   sous CC BY-SA 4.0. Auteurs et liens : voir CREDITS.md.
