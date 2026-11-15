@@ -1,6 +1,8 @@
 # ECG interactif
 
 Cours interactif de lecture de l'ECG, utilisable en projection ou seul.
+
+**En ligne : <https://paulpadovani.github.io/ecg-interactif/>**
 Dr Paul Padovani, cardiologie pédiatrique et congénitale, CHU de Nantes.
 
 ## Modules
