@@ -2264,5 +2264,9 @@ const startView = (location.hash || '').replace('#', '');
 <script src="js/coro-data.js"></script>
 <script src="js/repol.js"></script>
 <script src="js/metabo.js"></script>
-<script>go(VIEWS.includes(startView) ? startView : 'accueil', false);</script>
+<script>
+// Si les modules js/*.js n'ont pas pu être chargés (page ouverte sans ses fichiers voisins), on le dit au lieu d'afficher des sections vides.
+if (typeof QRSNAME === 'undefined') document.getElementById('homeQrs').innerHTML = '<p class="muted">Modules non chargés : ouvrir la page avec ses fichiers (serveur local ou GitHub Page).</p>';
+go(VIEWS.includes(startView) ? startView : 'accueil', false);
+</script>
 </body></html>
