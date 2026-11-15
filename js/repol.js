@@ -158,7 +158,7 @@ const REPOL = (() => {
     E.occSeg.style.visibility = (A.bit == null || hid) ? 'hidden' : 'visible';
     $$('button', E.occSeg).forEach(b => { b.setAttribute('aria-pressed', String((b.dataset.v === '1') === S.occl)); b.disabled = S.stage < 0.5; });
     E.banner.hidden = !S.defi;
-    if (S.defi) E.bannerTxt.innerHTML = hid ? '<b>Défi.</b> Où est le sus-décalage ? Y a-t-il un miroir ? Nommez le territoire, puis cliquez l’artère proposée par la salle.' : `<b>Réponse : ${A.label}.</b> ${A.terr}.`;
+    if (S.defi) E.bannerTxt.innerHTML = hid ? '<b>Défi :</b> sus-décalage, miroir, territoire. Cliquez l’artère proposée.' : `<b>Réponse :</b> ${A.label}.`;
     E.btnReveal.hidden = !hid;
     E.terr.innerHTML = '';
     const rows = [['Sus-décalage', A.up], ['Miroir', A.mirror], ['Territoire', A.terr], [A.peri ? 'Diagnostic' : 'Artère', A.label], ['À rechercher', A.seek]];
@@ -167,7 +167,7 @@ const REPOL = (() => {
       E.terr.append(Kit.revealList(rows, { open: true }).el);
       const chips = h('div', { class: 'st-map' });
       for (const row of GRID) for (const l of row) { const v = S.res.st[l]; chips.append(h('span', { class: 'st-chip' + (v >= 1 ? ' up' : v <= -0.5 ? ' dn' : '') }, h('b', null, NAME[l] || l), ' ', (v > 0 ? '+' : v < 0 ? '−' : '') + Kit.frNum(Math.abs(v)))); }
-      E.terr.append(h('p', { class: 'xs muted', style: 'margin:10px 0 6px' }, 'Décalage du ST calculé par le modèle, en mm, 60 ms après le point J :'), chips);
+      E.terr.append(h('p', { class: 'xs muted', style: 'margin:10px 0 6px' }, 'ST à J + 60 ms (mm) :'), chips);
     }
   }
   function setArt(k) { S.art = k; S.occl = true; update(); setArtSet(); }
@@ -200,15 +200,15 @@ const REPOL = (() => {
     E.play = h('button', { class: 'btn small secondary', onclick: () => { S.playing = !S.playing; if (S.playing && S.stage >= 4.95) S.stage = 0; paintPlay(); } }, '▶︎ Dérouler');
     E.banner = h('div', { class: 'mystery-banner', hidden: true }, E.bannerTxt = h('div'), h('div', { style: 'display:flex;gap:8px' }, E.btnReveal = h('button', { class: 'btn small', onclick: () => revealDefi(null) }, 'Révéler'), h('button', { class: 'btn small secondary', onclick: quitDefi }, 'Quitter le défi')));
     E.coro = h('canvas', { class: 'coro-cv', 'aria-label': 'Coronarographie' });
-    E.veil = h('div', { class: 'veil dark', hidden: true }, h('div', null, h('b', null, 'Coronarographie masquée'), h('span', null, 'Nommez d’abord le territoire sur l’ECG.')));
+    E.veil = h('div', { class: 'veil dark', hidden: true }, h('div', null, h('b', null, 'Coronarographie masquée')));
     E.coroCap = h('p', { class: 'small', style: 'margin-top:10px' }, 'Chargement de l’image…'); E.credit = h('p', { class: 'xs muted', style: 'margin-top:4px' });
     E.occSeg = h('div', { class: 'seg', role: 'group', 'aria-label': 'État de l’artère' }, h('button', { 'data-v': '1', onclick: () => { S.occl = true; update(); inject(); } }, 'Occlusion'), h('button', { 'data-v': '0', onclick: () => { S.occl = false; update(); inject(); } }, 'Après désobstruction'));
     E.ecg = h('canvas', { 'aria-label': 'ECG 12 dérivations simulé' });
     E.stageName = h('p', { class: 'dx' }); E.stageTxt = h('p', { class: 'ary-txt' }); E.terr = h('div');
     root.append(
       h('div', { class: 'section-head' },
-        h('div', null, h('div', { class: 'eyebrow' }, 'Repolarisation · ischémie'), h('h2', null, 'De l’occlusion à la séquelle.'),
-          h('p', null, 'Choisissez l’artère occluse et faites avancer le temps. Le vecteur de lésion pointe vers le territoire ischémié : les 12 dérivations en découlent, miroir compris. La coronarographie montre où l’artère s’arrête.')),
+        h('div', null, h('h2', null, 'Infarctus'),
+          h('p', null, 'Artère occluse, évolution dans le temps, 12 dérivations et coronarographie.')),
         h('span', { class: 'hint-keys', html: '<kbd>←</kbd> <kbd>→</kbd> stade · <kbd>Espace</kbd> dérouler · <kbd>D</kbd> défi' })),
       h('div', { class: 'card sim-controls' },
         h('div', { class: 'ctl-group' }, h('span', { class: 'ctl-lab' }, 'Artère'), E.chips),
@@ -220,7 +220,7 @@ const REPOL = (() => {
           h('div', { class: 'ecg-tools' }, E.occSeg, h('div', { style: 'display:flex;gap:8px' }, h('button', { class: 'btn small secondary', onclick: inject }, 'Réinjecter'), h('button', { class: 'chip', 'aria-pressed': 'true', onclick: e => { S.labels = !S.labels; e.currentTarget.setAttribute('aria-pressed', String(S.labels)); drawCoro(); } }, 'Légendes'))),
           h('div', { class: 'coro-wrap' }, E.coro, E.veil), E.coroCap, E.credit),
         h('div', { class: 'card ecg-card' }, E.ecg,
-          h('p', { class: 'xs muted', style: 'margin-top:8px' }, '25 mm/s, 10 mm/mV. ▲ sus-décalage ≥ 1 mm, ▼ sous-décalage ≥ 0,5 mm. Tracé simulé : modèle à dipôle unique, amplitudes et chronologie indicatives. La reperfusion accélère cette séquence et peut limiter l’onde Q.'))),
+          h('p', { class: 'xs muted', style: 'margin-top:8px' }, '25 mm/s, 10 mm/mV. ▲ ST ≥ +1 mm, ▼ ST ≤ −0,5 mm. Modèle simulé (dipôle unique), valeurs indicatives.'))),
       h('div', { class: 'repol-bottom' },
         h('div', { class: 'card panel answer' }, h('h4', null, 'Ce que montre le tracé'), E.stageName, E.stageTxt),
         h('div', { class: 'card panel' }, h('h4', null, 'Territoire'), E.terr)));

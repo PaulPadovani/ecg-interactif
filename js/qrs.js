@@ -123,8 +123,8 @@ const QRSNAME = (() => {
     const cleanups = [];
     card.append(
       h('div', { class: 'section-head', style: 'margin:0' },
-        h('div', null, h('div', { class: 'eyebrow' }, 'Avant de commencer · Vocabulaire'), h('h3', null, 'Nommer le QRS'))),
-      h('p', { class: 'step-q', html: 'Chaque déflexion du complexe porte une lettre. <b>Trois questions</b> suffisent : positive ou négative ? avant ou après R ? grande ou petite ?' }),
+        h('div', null, h('div', { class: 'eyebrow' }, 'Vocabulaire'), h('h3', null, 'Nommer le QRS'))),
+      h('p', { class: 'step-q', html: 'Positive ou négative ? Avant ou après la première onde R ? Plus ou moins de 5 mm ?' }),
       h('div', { class: 'cols-2' },
         h('div', { class: 'blk' }, h('h4', null, 'Quelle lettre ?'), h('ul', null,
           h('li', { html: '<b>R</b> : toute déflexion <b>positive</b>. La deuxième s’appelle R′ (« R prime »).' }),
@@ -159,10 +159,10 @@ const QRSNAME = (() => {
       const rows = h('div', { class: 'ctrl-row' });
       const rebuild = () => { rows.innerHTML = ''; rows.append(slider('q', 'Négative initiale', 12), slider('r', '1re positive', 25), slider('s', 'Négative suivante', 25), slider('rp', '2e positive', 15)); };
       rebuild();
-      el.append(h('div', { class: 'w-head' }, h('h4', null, 'Atelier : construisez un complexe'),
+      el.append(h('div', { class: 'w-head' }, h('h4', null, 'Atelier'),
         h('div', { class: 'chips' }, presets.map(([t, p]) => h('button', { class: 'chip', onclick: () => { Object.assign(v, p); rebuild(); drawIt(); } }, t)))),
         cv, rows, out,
-        h('p', { class: 'xs muted' }, 'Les pointillés bleus marquent le seuil de 5 mm. Faites passer une onde de part et d’autre : la lettre change de casse.'));
+        h('p', { class: 'xs muted' }, 'Pointillés bleus : seuil de 5 mm.'));
       card.append(el); cleanups.push(observe(cv, drawIt));
     }
 
@@ -179,7 +179,7 @@ const QRSNAME = (() => {
         const opts = h('div', { class: 'opts' });
         Q.opts.forEach((o, k) => { const cls = done ? (o === it.answer ? ' correct' : o === Q.answered ? ' wrong' : '') : ''; opts.append(h('button', { class: 'opt' + cls, disabled: done ? true : null, onclick: () => answer(k) }, h('span', { class: 'k' }, 'ABCD'[k]), h('span', { class: 'qrs-opt' }, o))); });
         side.append(h('p', { class: 'qtext' }, 'Comment nommez-vous ce complexe ?'), opts);
-        if (!done) side.append(h('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px' }, h('button', { class: 'btn secondary small', onclick: () => answer(-1) }, 'Révéler · Espace'), h('span', { class: 'xs muted' }, 'Vote de la salle, puis touches 1 à 4.')));
+        if (!done) side.append(h('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px' }, h('button', { class: 'btn secondary small', onclick: () => answer(-1) }, 'Révéler · Espace'), h('span', { class: 'xs muted' }, 'Touches 1 à 4')));
         else side.append(h('div', { class: 'answer', style: 'margin-top:14px' },
           h('p', { class: 'dx' }, it.answer),
           h('ul', null, explain(it.d).map(([L, why]) => h('li', null, h('b', null, L), ' : ', why))),
@@ -196,7 +196,7 @@ const QRSNAME = (() => {
       const next = () => { Q.i++; if (Q.i % Q.order.length === 0) Q.order = shuffle(Q.order); Q.answered = null; Q.opts = null; paint(); };
       Q.answer = answer; Q.next = next; Q.reveal = () => (Q.answered == null ? answer(-1) : next());
       const el = h('div', { class: 'widget' });
-      el.append(h('div', { class: 'w-head' }, h('h4', null, 'À vous : nommez ce complexe'), h('div', { style: 'display:flex;gap:8px;align-items:center' }, score, h('button', { class: 'btn secondary small', onclick: next }, 'Passer ›'))),
+      el.append(h('div', { class: 'w-head' }, h('h4', null, 'Quiz'), h('div', { style: 'display:flex;gap:8px;align-items:center' }, score, h('button', { class: 'btn secondary small', onclick: next }, 'Passer ›'))),
         h('div', { class: 'qrs-quiz' }, cv, side));
       card.append(el); paint(); cleanups.push(observe(cv, drawIt));
     }

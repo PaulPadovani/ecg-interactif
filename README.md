@@ -1,6 +1,6 @@
-# ECG de l'enfant · cours interactif
+# ECG interactif
 
-Plateforme pédagogique pour apprendre à lire un ECG d'enfant, pensée pour être projetée en cours et utilisée seul ensuite.
+Cours interactif de lecture de l'ECG, utilisable en projection ou seul.
 Dr Paul Padovani, cardiologie pédiatrique et congénitale, CHU de Nantes.
 
 ## Modules

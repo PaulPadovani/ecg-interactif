@@ -11,7 +11,6 @@ const METABO = (() => {
   const TABS = {
     k: {
       chip: 'Kaliémie', sym: 'K⁺', unit: 'mmol/L', min: 1.5, max: 9.5, step: 0.1, dec: 1, start: 4.2, sweep: [2.0, 9.2], defi: [2.1, 2.9, 4.2, 5.9, 6.9, 7.8, 8.9],
-      title: 'Faites monter la kaliémie, regardez le complexe.',
       zones: [[1.5, 2.5, 'bad', 'Hypokaliémie sévère'], [2.5, 3.5, 'warn', 'Hypokaliémie'], [3.5, 5.0, 'ok', 'Kaliémie normale'], [5.0, 6.0, 'warn', 'Hyperkaliémie légère'], [6.0, 7.0, 'bad', 'Hyperkaliémie modérée'], [7.0, 9.5, 'crit', 'Hyperkaliémie sévère']],
       params(v) {
         const hypo = clamp((3.5 - v) / 2, 0, 1), a = sstep((v - 5.0) / 1.5), b = sstep((v - 6.0) / 1.5), c = sstep((v - 6.5) / 2.0), d = sstep((v - 8.0) / 1.2);
@@ -27,7 +26,6 @@ const METABO = (() => {
     },
     ca: {
       chip: 'Calcémie', sym: 'Ca²⁺', unit: 'mmol/L', min: 1.2, max: 4.0, step: 0.05, dec: 2, start: 2.4, sweep: [1.3, 3.9], defi: [1.5, 1.9, 2.4, 3.1, 3.7],
-      title: 'La calcémie règle la longueur du segment ST.',
       zones: [[1.2, 1.9, 'bad', 'Hypocalcémie sévère'], [1.9, 2.2, 'warn', 'Hypocalcémie'], [2.2, 2.6, 'ok', 'Calcémie normale'], [2.6, 3.0, 'warn', 'Hypercalcémie légère'], [3.0, 3.5, 'bad', 'Hypercalcémie modérée'], [3.5, 4.0, 'crit', 'Hypercalcémie sévère']],
       params(v) {
         const lo = clamp((2.2 - v) / 1.0, 0, 1), hi = clamp((v - 2.6) / 1.4, 0, 1), sev = sstep((v - 3.4) / 0.6);
@@ -41,7 +39,6 @@ const METABO = (() => {
     },
     temp: {
       chip: 'Température', sym: 'T°', unit: '°C', min: 24, max: 37, step: 0.5, dec: 1, start: 37, sweep: [37, 24.5], defi: [36.5, 33.5, 31, 28, 25.5],
-      title: 'Quand la température baisse, l’onde J apparaît.',
       zones: [[24, 28, 'crit', 'Hypothermie sévère'], [28, 32, 'bad', 'Hypothermie modérée'], [32, 35, 'warn', 'Hypothermie légère'], [35, 37, 'ok', 'Température normale']],
       params(v) {
         const x = clamp((35 - v) / 11, 0, 1), j = sstep((33 - v) / 7);
@@ -128,16 +125,16 @@ const METABO = (() => {
   function paint() {
     const tab = T(), v = val(), hid = hidden(), P = tab.params(v), M = measures(P);
     $$('button', E.tabs).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.k === S.tab)));
-    E.h2.textContent = tab.title; E.slider.min = tab.min; E.slider.max = tab.max; E.slider.step = tab.step; E.slider.value = v; E.sliderRow.style.visibility = hid ? 'hidden' : 'visible';
+    E.slider.min = tab.min; E.slider.max = tab.max; E.slider.step = tab.step; E.slider.value = v; E.sliderRow.style.visibility = hid ? 'hidden' : 'visible';
     paintGauge();
     E.read.innerHTML = [['FC', M.fc, '/min'], ['PR', M.pr, 'ms'], ['QRS', M.qrs, 'ms'], ['QTc', M.qtc, 'ms']].map(([k, x, u]) => `<div><b>${x == null ? '–' : x}</b><span>${k}${x == null ? '' : ' · ' + u}</span></div>`).join('');
     E.signs.innerHTML = '';
-    if (hid) { const rows = [['Rythme, FC', 'À décrire : fréquence, onde P, PR.'], ['QRS', 'Fin ou large ?'], ['ST, T, U', 'Segment ST, forme de T, onde U ou onde J ?']]; S.defi.list = Kit.revealList(rows.map(([a, b]) => [a, b])); E.signs.append(h('p', { class: 'small', style: 'margin-bottom:8px' }, 'Faites décrire le tracé, puis proposez une valeur.'), S.defi.list.el); }
+    if (hid) { const rows = [['Rythme, FC', 'À décrire : fréquence, onde P, PR.'], ['QRS', 'Fin ou large ?'], ['ST, T, U', 'Segment ST, forme de T, onde U ou onde J ?']]; S.defi.list = Kit.revealList(rows.map(([a, b]) => [a, b])); E.signs.append(S.defi.list.el); }
     else for (const [head, items] of tab.signs) { E.signs.append(h('div', { class: 'xs muted', style: 'font-weight:600;margin-top:6px' }, head)); const box = h('div', { class: 'alerts' }); for (const [txt, on] of items) { const act = on(v); box.append(h('div', { class: 'alert sign ' + (act ? 'on' : 'off') }, h('i'), h('span', null, txt))); } E.signs.append(box); }
     E.causes.innerHTML = ''; for (const [k, txt] of tab.causes) E.causes.append(h('p', { class: 'ary-txt', style: 'margin-bottom:8px', html: `<b>${k}.</b> ${txt}` }));
     E.pearl.innerHTML = '<b>À retenir. </b>' + tab.pearl;
     E.banner.hidden = !S.defi;
-    if (S.defi) E.bannerTxt.innerHTML = hid ? `<b>Défi.</b> ${tab.chip} masquée. Décrivez le tracé, annoncez une valeur, puis révélez.` : `<b>Réponse : ${Kit.frNum(v, tab.dec)} ${tab.unit}.</b> ${zoneOf(tab, v)[3]}.`;
+    if (S.defi) E.bannerTxt.innerHTML = hid ? '<b>Défi :</b> valeur masquée. Décrivez le tracé, puis révélez.' : `<b>Réponse :</b> ${Kit.frNum(v, tab.dec)} ${tab.unit}, ${zoneOf(tab, v)[3].toLowerCase()}.`;
     E.btnReveal.hidden = !hid; E.play.textContent = S.playing ? '❚❚ Pause' : '▶︎ Faire varier';
     draw();
   }
@@ -167,18 +164,18 @@ const METABO = (() => {
     E.status = h('span', { class: 'verdict ok' }); E.read = h('div', { class: 'axis-read meta-read' });
     E.beat = h('canvas', { class: 'strip', 'aria-label': 'Un battement agrandi' }); E.beat.style.height = '300px';
     E.strip = h('canvas', { class: 'strip', 'aria-label': 'Dérivation DII' }); E.strip.style.height = '150px';
-    E.signs = h('div'); E.causes = h('div'); E.pearl = h('p', { class: 'pearl' }); E.h2 = h('h2');
+    E.signs = h('div'); E.causes = h('div'); E.pearl = h('p', { class: 'pearl' }); E.h2 = h('h2', null, 'Troubles métaboliques');
     E.banner = h('div', { class: 'mystery-banner', hidden: true }, E.bannerTxt = h('div'), h('div', { style: 'display:flex;gap:8px' }, E.btnReveal = h('button', { class: 'btn small', onclick: revealDefi }, 'Révéler'), h('button', { class: 'btn small secondary', onclick: quitDefi }, 'Quitter le défi')));
     root.append(
       h('div', { class: 'section-head' },
-        h('div', null, h('div', { class: 'eyebrow' }, 'Troubles métaboliques'), E.h2,
-          h('p', null, 'Déplacez le curseur : onde P, QRS, segment ST, onde T et onde U se transforment en continu. Les seuils affichés sont des repères d’enseignement.')),
+        h('div', null, E.h2,
+          h('p', null, 'Seuils indicatifs.')),
         h('span', { class: 'hint-keys', html: '<kbd>←</kbd> <kbd>→</kbd> valeur · <kbd>Espace</kbd> faire varier · <kbd>D</kbd> défi' })),
       h('div', { class: 'card sim-controls' }, h('div', { class: 'ctl-group' }, h('span', { class: 'ctl-lab' }, 'Paramètre'), E.tabs), h('div', { style: 'display:flex;gap:8px;flex-wrap:wrap' }, E.play, h('button', { class: 'btn small', onclick: startDefi }, 'Défi : quelle valeur ?'))),
       E.banner,
       h('div', { class: 'meta-grid' },
         h('div', { class: 'card panel meta-gauge' }, buildGauge(), h('div', { style: 'text-align:center' }, E.status), E.sliderRow, E.read,
-          h('p', { class: 'xs muted' }, 'FC, PR, QRS et QTc (Bazett) sont ceux du tracé simulé.')),
+          h('p', { class: 'xs muted' }, 'Mesures du tracé simulé (QTc de Bazett).')),
         h('div', { class: 'card ecg-card meta-ecg' },
           h('div', { class: 'xs muted', style: 'font-weight:600;margin-bottom:6px' }, 'Un battement, agrandi'), E.beat,
           h('div', { class: 'xs muted', style: 'font-weight:600;margin:12px 0 6px' }, 'DII · 25 mm/s · 10 mm/mV'), E.strip)),

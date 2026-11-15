@@ -462,12 +462,12 @@ const ARY = (() => {
     E.veil.hidden = !hidden; E.title.textContent = hidden ? 'Rythme mystère' : r.label; E.rate.textContent = hidden ? '? /min' : r.rate; E.rate.hidden = false;
     E.adeno.setAttribute('aria-pressed', String(S.adeno)); E.adeno.textContent = S.adeno ? 'Arrêter le test' : 'Tester l’adénosine';
     E.banner.hidden = !S.defi;
-    if (S.defi) E.bannerTxt.innerHTML = S.defi.revealed ? `<b>Réponse : ${r.label}.</b> Rejouez la séquence au ralenti pour suivre le circuit.` : '<b>Défi.</b> Lisez DII et le diagramme en échelle : fréquence, régularité, onde P, rapport RP/PR. Demandez un test à l’adénosine si besoin, puis cliquez le rythme proposé par la salle.';
+    if (S.defi) E.bannerTxt.innerHTML = S.defi.revealed ? `<b>Réponse :</b> ${r.label}.` : '<b>Défi :</b> fréquence, régularité, onde P, RP/PR. Cliquez le rythme proposé.';
     E.btnReveal.hidden = !hidden;
     // panneaux
     E.mech.innerHTML = hidden ? '<span class="muted">Masqué pendant le défi.</span>' : r.mech;
     E.signsBox.innerHTML = '';
-    if (hidden) { S.defi.list = Kit.revealList(r.signs); E.signsBox.append(S.defi.list.el, h('p', { class: 'xs muted', style: 'margin-top:8px' }, 'Faites décrire chaque élément par la salle avant de le révéler.')); }
+    if (hidden) { S.defi.list = Kit.revealList(r.signs); E.signsBox.append(S.defi.list.el); }
     else E.signsBox.append(Kit.revealList(r.signs, { open: true }).el);
     E.adenoTxt.innerHTML = hidden ? (S.adeno ? '<span class="muted">Observez l’effet sur le tracé.</span>' : '<span class="muted">Le test à l’adénosine reste disponible.</span>') : r.adeno;
     E.pearl.innerHTML = hidden ? '' : '<b>À retenir. </b>' + r.pearl; E.pearl.hidden = hidden;
@@ -493,7 +493,7 @@ const ARY = (() => {
     const heart = buildHeart();
     E.sa = $('#ary-sa', E.svg); E.avn = $('#ary-avn', E.svg); E.block = $('#ary-block', E.svg);
     E.foci = { focus: $('#ary-f-focus', E.svg), f1: $('#ary-f-f1', E.svg), f2: $('#ary-f-f2', E.svg), f3: $('#ary-f-f3', E.svg), vt: $('#ary-f-vt', E.svg), junc: $('#ary-f-junc', E.svg) };
-    E.veil = h('div', { class: 'veil', hidden: true }, h('div', null, h('b', null, 'Mécanisme masqué'), h('span', null, 'Le circuit s’affichera à la révélation.')));
+    E.veil = h('div', { class: 'veil', hidden: true }, h('div', null, h('b', null, 'Mécanisme masqué')));
     E.cv = h('canvas', { class: 'ary-cv', 'aria-label': 'Tracé DII et diagramme en échelle' });
     E.play = h('button', { class: 'btn small secondary', 'aria-pressed': String(S.playing), onclick: () => togglePlay() }, S.playing ? '❚❚ Pause' : '▶︎ Lecture');
     E.adeno = h('button', { class: 'btn small', 'aria-pressed': 'false', onclick: () => setAdeno(!S.adeno) }, 'Tester l’adénosine');
@@ -503,8 +503,8 @@ const ARY = (() => {
     E.mech = h('p', { class: 'ary-txt' }); E.signsBox = h('div'); E.adenoTxt = h('p', { class: 'ary-txt' }); E.pearl = h('p', { class: 'pearl' });
     root.append(
       h('div', { class: 'section-head' },
-        h('div', null, h('div', { class: 'eyebrow' }, 'Atlas des arythmies'), h('h2', null, 'Voir le circuit, lire le tracé.'),
-          h('p', null, 'Choisissez un rythme : le front d’activation parcourt le cœur au ralenti pendant que DII et le diagramme en échelle défilent au même instant. Puis testez l’adénosine pour voir ce qui dépend du nœud AV.')),
+        h('div', null, h('h2', null, 'Arythmies'),
+          h('p', null, 'Circuit, DII et diagramme en échelle synchronisés.')),
         h('span', { class: 'hint-keys', html: '<kbd>Espace</kbd> lecture · <kbd>←</kbd> <kbd>→</kbd> rythme · <kbd>A</kbd> adénosine · <kbd>D</kbd> défi' })),
       h('div', { class: 'card sim-controls' }, h('div', { class: 'ctl-group', style: 'flex:1 1 520px' }, h('span', { class: 'ctl-lab' }, 'Rythme'), E.chips), h('button', { class: 'btn small', onclick: startDefi }, 'Défi : quel rythme ?')),
       E.banner,
@@ -516,7 +516,7 @@ const ARY = (() => {
             h('div', { style: 'display:flex;gap:8px;align-items:center;flex-wrap:wrap' }, E.play, segGroup([[1, '×1'], [0.5, '×½'], [0.25, '×¼'], [0.1, '×⅒']], S.speed, v => { S.speed = v; }, 'Vitesse de lecture')),
             E.adeno),
           E.cv, E.scrub,
-          h('p', { class: 'xs muted', style: 'margin-top:6px' }, 'DII, 25 mm/s, 10 mm/mV. Diagramme en échelle : A, oreillettes ; AV, jonction ; V, ventricules. Une ligne oblique représente la conduction, une barre un bloc. Tracés de synthèse à visée pédagogique.'))),
+          h('p', { class: 'xs muted', style: 'margin-top:6px' }, 'DII, 25 mm/s, 10 mm/mV. Échelle : A oreillettes, AV jonction, V ventricules ; oblique = conduction, barre = bloc. Tracés simulés.'))),
       h('div', { class: 'sim-bottom ary-bottom' },
         h('div', { class: 'card panel' }, h('h4', null, 'Mécanisme'), E.mech),
         h('div', { class: 'card panel' }, h('h4', null, 'Sur le tracé'), E.signsBox),

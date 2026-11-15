@@ -1,4 +1,4 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>ECG de l'enfant</title>
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>ECG interactif</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
 /* Layout: sticky translucent bar, one view at a time; content sits on a 1200px column, simulator and cases go wider (1440px) for projection. */
@@ -328,7 +328,7 @@ input[type=range] { accent-color: var(--accent); }
   <div class="nav-in">
     <a class="brand" href="#accueil" data-go="accueil" aria-label="Accueil">
       <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="var(--signal)"/><path d="M3 15h5l2-5 3 10 3-14 2 9h7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span>ECG de l'enfant</span>
+      <span>ECG interactif</span>
     </a>
     <nav class="seg" id="mainnav" aria-label="Sections">
       <button data-go="accueil">Accueil</button>
@@ -350,9 +350,8 @@ input[type=range] { accent-color: var(--accent); }
 <section class="view" id="v-accueil" data-view="accueil">
   <div class="wrap">
     <div class="hero">
-      <div class="eyebrow">Cours externes · Cardiologie pédiatrique</div>
-      <h1>Lire un ECG d'enfant,<br><span class="sig">une étape à la fois.</span></h1>
-      <p class="lede">Une méthode systématique, un simulateur d'électrodes et des tracés réels pour faire raisonner la salle à voix haute.</p>
+      <h1>Lecture de l'<span class="sig">ECG</span></h1>
+      <p class="lede">Méthode, simulateurs et cas cliniques.</p>
       <p class="byline">Dr Paul Padovani, CCA · Cardiologie pédiatrique et congénitale · CHU de Nantes</p>
       <div class="hero-trace" aria-label="Tracé ECG animé, dérivation DII">
         <canvas id="heroCanvas"></canvas>
@@ -366,64 +365,62 @@ input[type=range] { accent-color: var(--accent); }
         <svg class="ill" viewBox="0 0 120 56" aria-hidden="true"><g fill="none" stroke="var(--fg-3)" stroke-width="2"><circle cx="10" cy="28" r="7"/><circle cx="40" cy="28" r="7"/><circle cx="70" cy="28" r="7"/><circle cx="100" cy="28" r="7"/><path d="M17 28h16M47 28h16M77 28h16"/></g><circle cx="10" cy="28" r="7" fill="var(--signal)"/></svg>
         <div class="num">10</div>
         <h3>étapes de lecture</h3>
-        <p>On commence par nommer les ondes du QRS, puis VIP, rythme, fréquence, axe, P, PR, QRS, ST, T, QT. Normes du cours selon l'âge et un outil interactif à chaque étape.</p>
-        <span class="go">Démarrer la méthode ›</span>
+        <p>Nommer le QRS, puis VIP, rythme, fréquence, axe, P, PR, QRS, ST, T, QT. Normes selon l'âge.</p>
+        <span class="go">Ouvrir ›</span>
       </button>
       <button class="tile" data-go="simulateur">
         <svg class="ill" viewBox="0 0 120 56" aria-hidden="true"><path d="M48 6c-10 0-14 8-14 14v30h52V20c0-6-4-14-14-14z" fill="none" stroke="var(--fg-3)" stroke-width="2"/><circle cx="50" cy="26" r="5" fill="#e8173f"/><circle cx="70" cy="26" r="5" fill="#f5c400"/><circle cx="64" cy="44" r="5" fill="#2bb24c"/><path d="M50 26L70 26L64 44Z" fill="none" stroke="var(--fg-2)" stroke-dasharray="3 3"/></svg>
         <div class="num">12</div>
         <h3>dérivations recalculées</h3>
-        <p>Déplacez les électrodes sur le thorax : tracés, axe et triangle d'Einthoven se recalculent. Inversions, dextrocardie, mode défi.</p>
-        <span class="go">Ouvrir le simulateur ›</span>
+        <p>Électrodes déplaçables. Inversions, dextrocardie, mode défi.</p>
+        <span class="go">Ouvrir ›</span>
       </button>
       <button class="tile" data-go="cas">
         <svg class="ill" viewBox="0 0 120 56" aria-hidden="true"><rect x="2" y="8" width="70" height="42" rx="6" fill="none" stroke="var(--fg-3)" stroke-width="2"/><path d="M8 32h10l3-8 4 16 4-22 3 14h8l3-4 3 4h18" fill="none" stroke="var(--signal)" stroke-width="2"/><rect x="80" y="12" width="36" height="8" rx="4" fill="var(--sunken)"/><rect x="80" y="25" width="36" height="8" rx="4" fill="var(--sunken)"/><rect x="80" y="38" width="36" height="8" rx="4" fill="var(--ok-soft)" stroke="var(--ok)"/></svg>
         <div class="num" id="tileCaseCount">36</div>
         <h3>tracés à interpréter</h3>
-        <p>Troubles conductifs, troubles du rythme, repolarisation, hypertrophies et pièges techniques. Lecture guidée, puis question.</p>
-        <span class="go">Lancer les cas ›</span>
+        <p>Conduction, rythme, repolarisation, hypertrophies, pièges techniques.</p>
+        <span class="go">Ouvrir ›</span>
       </button>
       <button class="tile" data-go="arythmies">
         <svg class="ill" viewBox="0 0 120 56" aria-hidden="true"><rect x="2" y="4" width="34" height="20" rx="6" fill="none" stroke="var(--fg-3)" stroke-width="2"/><path d="M8 32h28v18H8z" fill="none" stroke="var(--fg-3)" stroke-width="2"/><path d="M19 24v8" stroke="var(--warn)" stroke-width="3"/><circle cx="12" cy="12" r="4" fill="var(--warn)"/><path d="M46 30h10l3-9 4 18 4-22 3 13h10l3-9 4 18 4-22 3 13h10" fill="none" stroke="var(--signal)" stroke-width="2"/></svg>
         <div class="num sm">11</div>
         <h3>rythmes animés</h3>
-        <p>Le circuit parcourt le cœur au ralenti, synchronisé avec DII et le diagramme en échelle. Test à l'adénosine et mode défi.</p>
-        <span class="go">Ouvrir l'atlas ›</span>
+        <p>Circuit, DII et diagramme en échelle synchronisés. Test à l'adénosine.</p>
+        <span class="go">Ouvrir ›</span>
       </button>
       <button class="tile" data-go="repol">
         <svg class="ill" viewBox="0 0 120 56" aria-hidden="true"><circle cx="24" cy="28" r="22" fill="#111"/><path d="M10 20c6-4 12-2 18 0s10 6 14 4M18 22c-2 8 0 16 6 22" fill="none" stroke="#bbb" stroke-width="2.4" stroke-linecap="round"/><circle cx="28" cy="20" r="4" fill="none" stroke="var(--signal)" stroke-width="2"/><path d="M54 36h10l3-6 4 12 4-24c3 0 6 0 9 2s4 6 6 6 4 0 6 2v8h20" fill="none" stroke="var(--signal)" stroke-width="2"/></svg>
         <div class="num sm">4</div>
         <h3>artères à occlure</h3>
-        <p>Choisissez l'artère, faites avancer le temps : T suraiguë, Pardee, onde Q, T négative. Miroir sur 12 dérivations et coronarographie.</p>
-        <span class="go">Ouvrir l'infarctus ›</span>
+        <p>Évolution dans le temps sur 12 dérivations, coronarographie.</p>
+        <span class="go">Ouvrir ›</span>
       </button>
       <button class="tile" data-go="metabolique">
         <svg class="ill" viewBox="0 0 120 56" aria-hidden="true"><path d="M6 48a22 22 0 0 1 44 0" fill="none" stroke="var(--ok)" stroke-width="5"/><path d="M28 26a22 22 0 0 1 22 22" fill="none" stroke="var(--bad)" stroke-width="5"/><path d="M28 48l12-16" stroke="var(--fg)" stroke-width="2.5" stroke-linecap="round"/><path d="M58 40h12l3-6 4 10 4-4c4 0 6-26 9-26s5 26 9 26h17" fill="none" stroke="var(--signal)" stroke-width="2"/></svg>
         <div class="num sm">K⁺</div>
         <h3>et calcium, température</h3>
-        <p>Faites monter la kaliémie : T pointues, P qui s'efface, QRS large, aspect sinusoïdal. Hypokaliémie, calcémie, hypothermie.</p>
-        <span class="go">Ouvrir le module ›</span>
+        <p>Kaliémie, calcémie, hypothermie.</p>
+        <span class="go">Ouvrir ›</span>
       </button>
     </div>
 
     <div class="evidence">
-      <h2>Ce que dit la littérature, et ce que la plateforme en fait</h2>
-      <p>Les choix pédagogiques reposent sur des travaux publiés. Les outils d'IA générative ne lisent pas encore un ECG de façon fiable : ils servent ici à relancer le raisonnement, jamais à le remplacer.</p>
+      <h2>Fondements pédagogiques</h2>
       <div class="ev-grid">
-        <div class="ev"><span class="k">Approche systématique</span><h4>L'intervention la plus efficace</h4><p>Méta-analyse de 59 études (17 251 apprenants) : enseigner une lecture systématique a l'effet le plus important (SMD 0,92). Le travail en groupe et entre pairs fait mieux que le travail individuel.</p><span class="used">→ Méthode en 10 étapes, réflexion en binôme</span><span class="ref"><a href="https://cris.maastrichtuniversity.nl/en/publications/physician-training-for-electrocardiogram-interpretation-a-systema/" target="_blank" rel="noopener">Oh SY, Cook DA, et al. Acad Med 2022;97(4):593-602</a></span></div>
-        <div class="ev"><span class="k">Pratique mélangée</span><h4>Mélanger les diagnostics</h4><p>Des étudiants entraînés sur des ECG de catégories mélangées ont obtenu 46 à 47 % de bonnes réponses, contre 30 % quand chaque catégorie était travaillée en bloc.</p><span class="used">→ Ordre des cas mélangé par défaut</span><span class="ref">Hatala RM, Brooks LR, Norman GR. Adv Health Sci Educ 2003;8:17-26</span></div>
-        <div class="ev"><span class="k">Pratique délibérée</span><h4>Beaucoup de tracés, correction immédiate</h4><p>Courbe d'apprentissage : environ 34 tracés commentés pour atteindre 75 % de réussite à l'examen (modèle). 95 % des étudiants jugent le feedback immédiat nécessaire ou utile.</p><span class="used">→ Correction et critères affichés à chaque cas</span><span class="ref"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6737266" target="_blank" rel="noopener">Waechter J, et al. GMS J Med Educ 2019;36(4):Doc40</a></span></div>
-        <div class="ev"><span class="k">Simulation</span><h4>Simuler les erreurs d'électrodes</h4><p>Un simulateur web de malposition d'électrodes, ajouté au cours magistral, a amélioré les scores d'environ 30 % (petit effectif : 17 étudiants évalués).</p><span class="used">→ Simulateur glisser-déposer</span><span class="ref"><a href="https://pure.ulster.ac.uk/en/publications/the-utility-of-a-12-lead-ecg-electrode-misplacement-simulator-in--3/" target="_blank" rel="noopener">Bond RR, et al. J Electrocardiol 2011 (ISCE)</a></span></div>
-        <div class="ev"><span class="k">Répétition espacée</span><h4>Revenir sur ses erreurs</h4><p>Des quiz ECG espacés (récupération active) ont amélioré les scores d'externes par rapport aux groupes contrôles.</p><span class="used">→ « Revoir les erreurs » en fin de séance</span><span class="ref"><a href="https://scholars.uthscsa.edu/es/publications/the-spacing-effect-improving-electrocardiogram-interpretation/" target="_blank" rel="noopener">Cunningham JM, et al. Clin Teach 2024;21(1):e13626</a></span></div>
-        <div class="ev"><span class="k">IA générative</span><h4>Utile pour questionner, pas pour lire</h4><p>Face à des images d'ECG sans choix de réponses, ChatGPT-4V n'a posé le bon diagnostic que dans 7 réponses sur 57. Le coach de la plateforme ne voit pas le tracé : il s'appuie sur votre corrigé.</p><span class="used">→ Coach socratique ancré sur le corrigé</span><span class="ref"><a href="https://www.jmir.org/2024/1/e54607" target="_blank" rel="noopener">Zhu L, et al. J Med Internet Res 2024;26:e54607</a></span></div>
+        <div class="ev"><h4>Approche systématique</h4><p>Méta-analyse de 59 études (17 251 apprenants) : enseigner une lecture systématique a l'effet le plus important (SMD 0,92). Le travail en groupe et entre pairs fait mieux que le travail individuel.</p><span class="used">→ Méthode en 10 étapes, réflexion en binôme</span><span class="ref"><a href="https://cris.maastrichtuniversity.nl/en/publications/physician-training-for-electrocardiogram-interpretation-a-systema/" target="_blank" rel="noopener">Oh SY, Cook DA, et al. Acad Med 2022;97(4):593-602</a></span></div>
+        <div class="ev"><h4>Pratique mélangée</h4><p>Des étudiants entraînés sur des ECG de catégories mélangées ont obtenu 46 à 47 % de bonnes réponses, contre 30 % quand chaque catégorie était travaillée en bloc.</p><span class="used">→ Ordre des cas mélangé par défaut</span><span class="ref">Hatala RM, Brooks LR, Norman GR. Adv Health Sci Educ 2003;8:17-26</span></div>
+        <div class="ev"><h4>Pratique délibérée</h4><p>Courbe d'apprentissage : environ 34 tracés commentés pour atteindre 75 % de réussite à l'examen (modèle). 95 % des étudiants jugent le feedback immédiat nécessaire ou utile.</p><span class="used">→ Correction et critères affichés à chaque cas</span><span class="ref"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6737266" target="_blank" rel="noopener">Waechter J, et al. GMS J Med Educ 2019;36(4):Doc40</a></span></div>
+        <div class="ev"><h4>Simulation des erreurs d'électrodes</h4><p>Un simulateur web de malposition d'électrodes, ajouté au cours magistral, a amélioré les scores d'environ 30 % (petit effectif : 17 étudiants évalués).</p><span class="used">→ Simulateur glisser-déposer</span><span class="ref"><a href="https://pure.ulster.ac.uk/en/publications/the-utility-of-a-12-lead-ecg-electrode-misplacement-simulator-in--3/" target="_blank" rel="noopener">Bond RR, et al. J Electrocardiol 2011 (ISCE)</a></span></div>
+        <div class="ev"><h4>Répétition espacée</h4><p>Des quiz ECG espacés (récupération active) ont amélioré les scores d'externes par rapport aux groupes contrôles.</p><span class="used">→ « Revoir les erreurs » en fin de séance</span><span class="ref"><a href="https://scholars.uthscsa.edu/es/publications/the-spacing-effect-improving-electrocardiogram-interpretation/" target="_blank" rel="noopener">Cunningham JM, et al. Clin Teach 2024;21(1):e13626</a></span></div>
+        <div class="ev"><h4>IA générative</h4><p>Face à des images d'ECG sans choix de réponses, ChatGPT-4V n'a posé le bon diagnostic que dans 7 réponses sur 57. Le coach de la plateforme ne voit pas le tracé : il s'appuie sur votre corrigé.</p><span class="used">→ Coach socratique ancré sur le corrigé</span><span class="ref"><a href="https://www.jmir.org/2024/1/e54607" target="_blank" rel="noopener">Zhu L, et al. J Med Internet Res 2024;26:e54607</a></span></div>
       </div>
     </div>
 
     <div class="why">
       <div>
-        <div class="eyebrow">Avant de lire</div>
-        <h2>Pourquoi je fais un ECG ?</h2>
-        <p class="muted" style="margin-top:10px">D'après le cours. Le contexte oriente la lecture et la fréquence de référence.</p>
+        <h2>Indications</h2>
+        <p class="muted" style="margin-top:10px">D'après le cours.</p>
       </div>
       <ul>
         <li>Antécédents familiaux : canalopathies, myocardiopathies</li>
@@ -445,9 +442,8 @@ input[type=range] { accent-color: var(--accent); }
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow">Lecture systématique</div>
-        <h2>Dix questions, toujours dans le même ordre.</h2>
-        <p>Choisissez l'âge du patient : les normes affichées à chaque étape s'adaptent (valeurs du cours).</p>
+        <h2>Lecture systématique</h2>
+        <p>Normes du cours selon l'âge choisi.</p>
       </div>
       <span class="hint-keys"><kbd>←</kbd> <kbd>→</kbd> étape précédente / suivante</span>
     </div>
@@ -468,9 +464,8 @@ input[type=range] { accent-color: var(--accent); }
   <div class="wrap wide">
     <div class="section-head">
       <div>
-        <div class="eyebrow">Simulateur d'électrodes</div>
-        <h2>Déplacez une électrode, regardez l'ECG changer.</h2>
-        <p>Glissez les pastilles sur le thorax ou les membres. Les 12 dérivations sont recalculées à partir d'un dipôle cardiaque : quand on déplace une électrode, le cœur ne change pas, seul le point de vue change. Choisissez aussi l'âge et un cœur pathologique pour croiser les pièges.</p>
+        <h2>Simulateur d'électrodes</h2>
+        <p>12 dérivations recalculées à partir d'un dipôle cardiaque : déplacer une électrode change le point de vue, pas le cœur.</p>
       </div>
     </div>
     <div class="card sim-controls">
@@ -478,7 +473,7 @@ input[type=range] { accent-color: var(--accent); }
       <div class="ctl-group"><span class="ctl-lab">Cœur</span><div class="chips" id="pathoChips" role="group" aria-label="Cœur"></div></div>
     </div>
     <div class="mystery-banner" id="mysteryBanner" hidden>
-      <div id="mysteryText"><b>Mode défi.</b> Les câbles ont été branchés en secret. Que voyez-vous sur l'ECG ? Choisissez une hypothèse ci-dessous.</div>
+      <div id="mysteryText"><b>Défi :</b> branchement inconnu. Choisissez une hypothèse.</div>
       <div style="display:flex;gap:8px"><button class="btn small" id="btnReveal">Révéler</button><button class="btn small secondary" id="btnQuitMystery">Quitter le défi</button></div>
     </div>
     <div class="sim-grid">
@@ -531,9 +526,8 @@ input[type=range] { accent-color: var(--accent); }
   <div class="wrap wide" id="casList">
     <div class="section-head">
       <div>
-        <div class="eyebrow">Cas cliniques</div>
-        <h2>Raisonner à voix haute sur des tracés réels.</h2>
-        <p>Tracés issus du cours (diapos et Keynote) et du quiz de fin de stage. En lecture guidée, révélez chaque étape avant la question. Les catégories restent masquées jusqu'à la correction.</p>
+        <h2>Cas cliniques</h2>
+        <p>Tracés du cours et du quiz de fin de stage. Catégories masquées jusqu'à la correction.</p>
       </div>
       <div class="score"><span id="scoreTxt">0 / 0</span><button class="btn small secondary" id="btnResetScore">Remettre à zéro</button></div>
     </div>
@@ -1924,13 +1918,13 @@ function startMystery(kind = 'branch') {
     const keys = Object.keys(ECGModel.PATHO); let k; do { k = keys[Math.floor(Math.random() * keys.length)]; } while (k === SIM.lastMystery && keys.length > 1);
     SIM.lastMystery = k; SIM.mystery = k; SIM.place = SIM_STD(); SIM.dextro = false; SIM.scen = 'normal'; drawHeart();
     SIM.patho = k; $('#pathoExplain').hidden = true;
-    $('#mysteryText').innerHTML = '<b>Défi cœur.</b> Électrodes bien placées, cœur inconnu. Choisissez votre réponse dans la ligne « Cœur ».';
+    $('#mysteryText').innerHTML = '<b>Défi :</b> cœur inconnu, électrodes bien placées. Répondez dans « Cœur ».';
     $('#scenExplain').innerHTML = 'Branchement correct. Lisez V1, V6, la largeur du QRS, l’axe et le PR.';
   } else {
     const keys = Object.keys(SCEN).filter(k => k !== 'droites'); let k; do { k = keys[Math.floor(Math.random() * keys.length)]; } while (k === SIM.lastMystery && keys.length > 1);
     SIM.lastMystery = k; SIM.mystery = k; const s = SCEN[k]; SIM.place = s.place(); SIM.dextro = !!s.dextro; drawHeart();
     setPatho('normal'); $$('#pathoChips .chip').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.k === 'normal')));
-    $('#mysteryText').innerHTML = '<b>Défi branchement.</b> Les câbles ont été branchés en secret. Choisissez votre hypothèse dans « Branchements ».';
+    $('#mysteryText').innerHTML = '<b>Défi :</b> branchement inconnu. Répondez dans « Branchements ».';
     $('#scenExplain').innerHTML = 'Électrodes posées, câbles branchés en secret. Comparez DI et V6, regardez DII, DIII, puis la progression de R. Le cœur est-il à gauche ?';
   }
   $('#mysteryBanner').hidden = false; simRender(); go('simulateur', true);
