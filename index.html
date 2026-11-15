@@ -325,6 +325,7 @@ input[type=range] { accent-color: var(--accent); }
       <button data-go="arythmies">Arythmies</button>
       <button data-go="repol">Infarctus</button>
       <button data-go="metabolique">Métabolique</button>
+      <button data-go="stim">Stimulateur</button>
       <button data-go="cas">Cas cliniques</button>
     </nav>
     <div class="nav-actions">
@@ -389,6 +390,13 @@ input[type=range] { accent-color: var(--accent); }
         <div class="num sm">K⁺</div>
         <h3>et calcium, température</h3>
         <p>Kaliémie, calcémie, hypothermie.</p>
+        <span class="go">Ouvrir ›</span>
+      </button>
+      <button class="tile" data-go="stim">
+        <svg class="ill" viewBox="0 0 120 56" aria-hidden="true"><rect x="4" y="8" width="26" height="20" rx="6" fill="none" stroke="var(--fg-3)" stroke-width="2"/><path d="M30 18c14 0 18 10 20 22" fill="none" stroke="var(--fg-3)" stroke-width="2"/><path d="M54 40h10v-28M64 40h14l3-6 4 12 4-18 3 12h22" fill="none" stroke="var(--signal)" stroke-width="2"/></svg>
+        <div class="num sm">DDD</div>
+        <h3>stimulateur et défibrillateur</h3>
+        <p>Modes AAI, VVI, DDD. Stimulation antitachycardique et choc.</p>
         <span class="go">Ouvrir ›</span>
       </button>
     </div>
@@ -531,6 +539,9 @@ input[type=range] { accent-color: var(--accent); }
 
 <!-- ================= MÉTABOLIQUE (js/metabo.js) ================= -->
 <section class="view" id="v-metabolique" data-view="metabolique" hidden><div class="wrap wide" id="metaboRoot"></div></section>
+
+<!-- ================= STIMULATEUR ET DÉFIBRILLATEUR (js/stim.js) ================= -->
+<section class="view" id="v-stim" data-view="stim" hidden><div class="wrap wide" id="stimRoot"></div></section>
 </main>
 
 <div class="viewer" id="viewer" hidden>
@@ -1291,7 +1302,7 @@ function regularBeats(rr, dur, opts = {}) {
 }
 
 // -------- Routing --------
-const VIEWS = ['accueil', 'methode', 'simulateur', 'arythmies', 'repol', 'metabolique', 'cas'];
+const VIEWS = ['accueil', 'methode', 'simulateur', 'arythmies', 'repol', 'metabolique', 'stim', 'cas'];
 let currentView = 'accueil';
 const viewHooks = {};
 const viewKeys = {};   // raccourcis clavier propres à une vue (modules js/*.js)
@@ -2259,11 +2270,14 @@ const startView = (location.hash || '').replace('#', '');
 </script>
 <!-- Modules ajoutés : ils utilisent les fonctions du script ci-dessus, ils doivent donc être chargés après lui. -->
 <script src="js/kit.js"></script>
+<script src="js/heart.js"></script>
 <script src="js/qrs.js"></script>
+<script src="js/blocs.js"></script>
 <script src="js/arythmies.js"></script>
 <script src="js/coro-data.js"></script>
 <script src="js/repol.js"></script>
 <script src="js/metabo.js"></script>
+<script src="js/stim.js"></script>
 <script>
 // Si les modules js/*.js n'ont pas pu être chargés (page ouverte sans ses fichiers voisins), on le dit au lieu d'afficher des sections vides.
 if (typeof QRSNAME === 'undefined') document.getElementById('homeQrs').innerHTML = '<p class="muted">Modules non chargés : ouvrir la page avec ses fichiers (serveur local ou GitHub Page).</p>';

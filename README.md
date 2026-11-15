@@ -11,10 +11,11 @@ Dr Paul Padovani, cardiologie pédiatrique et congénitale, CHU de Nantes.
 | Module | Contenu |
 |---|---|
 | **Accueil** | **Nommer le QRS** : règles de nomenclature, atelier où l'on construit un complexe, quiz à révéler. |
-| **Méthode** | Lecture systématique en 10 étapes (VIP, rythme, fréquence, axe, P, PR, QRS, ST, T, QT) avec les normes selon l'âge. |
+| **Méthode** | Lecture systématique en 10 étapes (VIP, rythme, fréquence, axe, P, PR, QRS, ST, T, QT) avec les normes selon l'âge. À l'étape QRS, l'influx dans les branches (normal, bloc droit, bloc gauche) est animé sur le schéma du cœur, synchronisé avec V1 et V6. |
 | **Électrodes** | Simulateur 12 dérivations : on déplace les électrodes sur le thorax, l'ECG est recalculé (inversions, dextrocardie, mode défi). |
 | **Arythmies** | 11 rythmes animés. Le front d'activation parcourt un schéma du cœur, synchronisé avec DII et le diagramme en échelle. Test à l'adénosine, lecture au ralenti, mode défi. |
 | **Infarctus** | On choisit l'artère occluse (IVA proximale ou moyenne, circonflexe, coronaire droite) et on fait avancer le temps : ondes T suraiguës, onde de Pardee, miroir, onde Q, T négative. Coronarographie simulée à partir de vraies images. Péricardite en comparaison. |
+| **Stimulateur** | Stimulateur double chambre : modes AAI, VVI, DDD sur dysfonction sinusale ou BAV complet, avec marqueurs AS, AP, VS, VP. Défibrillateur : stimulation antitachycardique d'une TV, choc d'une FV. |
 | **Métabolique** | Kaliémie, calcémie, température : le complexe se déforme en continu (T pointues, P qui s'efface, QRS large, aspect sinusoïdal ; onde U ; ST long ou court ; onde J d'Osborn). |
 | **Cas cliniques** | Tracés réels, lecture guidée puis question, correction et points clés. |
 
@@ -36,11 +37,14 @@ puis ouvrir <http://localhost:8000>.
 index.html            page principale : accueil, méthode, simulateur d'électrodes, cas cliniques
 css/modules.css       styles des modules ajoutés
 js/kit.js             outils communs (signal, animation, listes à révéler)
+js/heart.js           schéma du cœur animé, DII et diagramme en échelle (commun aux modules)
+js/blocs.js           Méthode, étape QRS : blocs de branche
 js/qrs.js             Nommer le QRS (page d'accueil)
 js/arythmies.js       atlas des arythmies
 js/repol.js           infarctus et coronarographie
 js/coro-data.js       données de coronarographie (fichier généré)
 js/metabo.js          troubles métaboliques
+js/stim.js            stimulateur et défibrillateur
 tools/build_coro.py   préparation des coronarographies à partir des images sources
 img/                  tracés ECG des cas et figures du cours
 ```
@@ -56,6 +60,7 @@ python3 tools/build_coro.py
 - **Tracés simulés.** Les ECG des modules Électrodes, Infarctus, Arythmies et Métabolique sont des modèles pédagogiques, pas des enregistrements. Le 12 dérivations repose sur un dipôle cardiaque unique dans un thorax homogène ; amplitudes, durées et chronologie sont indicatives.
 - **Infarctus.** Le sus-décalage est modélisé par un vecteur de lésion dirigé vers le territoire ischémié. La séquence (T suraiguë, Pardee, Q, T négative) est schématique ; la reperfusion la modifie.
 - **Métabolique.** Les seuils affichés sont des repères d'enseignement. La relation entre la valeur biologique et l'ECG varie beaucoup d'un patient à l'autre ; un ECG normal n'élimine pas une hyperkaliémie.
+- **Stimulateur.** Boîtier simplifié : fréquence de base 60/min, délais AV 150 et 180 ms, sans hystérésis, fréquence maximale de suivi ni conduction rétrograde. Valeurs d'exemple.
 - **Coronarographie.** Images réelles, injection et occlusions simulées par traitement d'image (voir [CREDITS.md](CREDITS.md)).
 
 ## Sources, crédits, données de patients

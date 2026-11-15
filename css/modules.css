@@ -119,3 +119,29 @@
 .alert.sign.on i { background: var(--signal); }
 .alert.sign.on { font-weight: 500; border-color: var(--signal-soft); }
 .alert.sign.off { opacity: .5; }
+
+/* ---------- Schéma commun : sondes, boîtier, choc, blocs de branche (js/heart.js) ---------- */
+.pmlead path { fill: none; stroke: var(--fg-2); stroke-width: 3; stroke-linecap: round; }
+.pmlead .pmtip { fill: var(--fg-2); }
+.pmlead.off { opacity: .2; }
+.coil { fill: none; stroke: var(--fg); stroke-width: 7; stroke-linecap: round; opacity: .55; }
+.coil.hot { stroke: var(--warn); opacity: 1; }
+.gen rect { fill: var(--sunken); stroke: var(--fg-3); stroke-width: 2; }
+.gen text { font: 700 14px var(--font); fill: var(--fg-2); text-anchor: middle; }
+.heart-svg .spark { fill: var(--warn); opacity: 0; }
+.heart-svg .shockfx { opacity: 0; pointer-events: none; }
+.heart-svg .shockfx path { fill: var(--warn); }
+.heart-svg .bbmark { display: none; }
+.heart-svg .bbmark circle { fill: var(--surface); stroke: var(--bad); stroke-width: 2.5; }
+.heart-svg .bbmark path { stroke: var(--bad); stroke-width: 2.5; stroke-linecap: round; }
+
+/* Méthode : blocs de branche */
+.bb-grid { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(0, 1.25fr); gap: 16px; align-items: center; }
+@media (max-width: 760px) { .bb-grid { grid-template-columns: 1fr; } }
+.bb-heart .heart-svg { max-width: 420px; margin: 0 auto; }
+
+/* Stimulateur */
+.stim-h { font-size: 24px; font-weight: 700; margin: 34px 0 14px; }
+.nbg { display: flex; flex-direction: column; gap: 8px; }
+.nbg-row { display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: center; font-size: 15px; }
+.nbg-row b { font: 700 24px var(--font-display); color: var(--signal); text-align: center; }
