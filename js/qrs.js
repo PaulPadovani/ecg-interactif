@@ -203,7 +203,7 @@ const QRSNAME = (() => {
 
     card.append(
       h('div', { class: 'pitfall', html: '<b>Pièges. </b>Un crochetage qui ne franchit pas la ligne de base n’est pas une nouvelle onde. Le seuil de 5 mm est une convention d’usage : certains auteurs raisonnent en amplitude relative et écrivent en majuscule l’onde dominante. L’onde delta (pré-excitation) et l’onde J ne font pas partie de la nomenclature du QRS.' }),
-      h('div', { class: 'step-foot' }, h('span'), h('button', { class: 'btn', onclick: () => onNext?.() }, 'Commencer la méthode : VIP ›')));
+      h('div', { class: 'step-foot' }, h('span'), h('button', { class: 'btn', onclick: () => onNext?.() }, 'Méthode de lecture ›')));
     return () => { cleanups.forEach(f => f()); quiz = null; };
   }
 
@@ -214,6 +214,10 @@ const QRSNAME = (() => {
     if (['1', '2', '3', '4'].includes(k)) { quiz.answer(+k - 1); return true; }
     return false;
   }
+
+  // Section de la page d'accueil, construite au premier affichage de l'accueil (les canvas ont alors une taille)
+  let homeDone = false;
+  viewHooks.accueil = () => { const el = document.getElementById('homeQrs'); if (homeDone || !el) return; homeDone = true; render(el, { onNext: () => go('methode') }); };
 
   return { render, key, nameOf };
 })();

@@ -7,7 +7,8 @@ Dr Paul Padovani, cardiologie pédiatrique et congénitale, CHU de Nantes.
 
 | Module | Contenu |
 |---|---|
-| **Méthode** | Lecture systématique en 10 étapes (VIP, rythme, fréquence, axe, P, PR, QRS, ST, T, QT) avec les normes selon l'âge. S'ouvre sur **Nommer le QRS** : règles de nomenclature, atelier où l'on construit un complexe, quiz à révéler. |
+| **Accueil** | **Nommer le QRS** : règles de nomenclature, atelier où l'on construit un complexe, quiz à révéler. |
+| **Méthode** | Lecture systématique en 10 étapes (VIP, rythme, fréquence, axe, P, PR, QRS, ST, T, QT) avec les normes selon l'âge. |
 | **Électrodes** | Simulateur 12 dérivations : on déplace les électrodes sur le thorax, l'ECG est recalculé (inversions, dextrocardie, mode défi). |
 | **Arythmies** | 11 rythmes animés. Le front d'activation parcourt un schéma du cœur, synchronisé avec DII et le diagramme en échelle. Test à l'adénosine, lecture au ralenti, mode défi. |
 | **Infarctus** | On choisit l'artère occluse (IVA proximale ou moyenne, circonflexe, coronaire droite) et on fait avancer le temps : ondes T suraiguës, onde de Pardee, miroir, onde Q, T négative. Coronarographie simulée à partir de vraies images. Péricardite en comparaison. |
@@ -32,7 +33,7 @@ puis ouvrir <http://localhost:8000>.
 index.html            page principale : accueil, méthode, simulateur d'électrodes, cas cliniques
 css/modules.css       styles des modules ajoutés
 js/kit.js             outils communs (signal, animation, listes à révéler)
-js/qrs.js             Nommer le QRS
+js/qrs.js             Nommer le QRS (page d'accueil)
 js/arythmies.js       atlas des arythmies
 js/repol.js           infarctus et coronarographie
 js/coro-data.js       données de coronarographie (fichier généré)

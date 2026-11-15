@@ -39,7 +39,7 @@
 .qrs-quiz { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(260px, 1fr); gap: 18px; align-items: start; }
 @media (max-width: 860px) { .qrs-quiz { grid-template-columns: 1fr; } }
 .qrs-opt { font-family: var(--font-display); font-size: 20px; font-weight: 600; letter-spacing: .02em; }
-.step-link .n.q { background: var(--signal-soft); color: var(--signal); }
+.home-qrs { margin-top: 56px; }
 
 /* ---------- Arythmies ---------- */
 .ary-grid { display: grid; grid-template-columns: minmax(320px, 0.95fr) minmax(0, 1.45fr); gap: 20px; align-items: start; }

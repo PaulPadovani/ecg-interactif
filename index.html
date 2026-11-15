@@ -126,18 +126,6 @@ kbd { font-family: var(--mono); font-size: 11px; border: 1px solid var(--line-2)
 .tile .go { margin-top: auto; color: var(--accent); font-size: 15px; font-weight: 500; }
 .tile svg.ill { height: 56px; width: auto; }
 @media (max-width: 900px) { .tiles { grid-template-columns: 1fr; } .tile { min-height: 0; } }
-.evidence { margin-top: 64px; }
-.evidence h2 { font-size: 32px; font-weight: 700; }
-.evidence > p { color: var(--fg-2); margin-top: 8px; max-width: 70ch; }
-.ev-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; margin-top: 22px; }
-.ev { background: var(--surface); border-radius: var(--r-lg); padding: 20px 22px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; }
-.ev .k { font-size: 13px; font-weight: 600; color: var(--signal); }
-.ev h4 { font-size: 19px; font-weight: 600; letter-spacing: -0.015em; }
-.ev p { font-size: 15px; color: var(--fg-2); }
-.ev .ref { font-size: 12px; color: var(--fg-3); margin-top: auto; padding-top: 6px; }
-.ev .ref a { color: var(--fg-3); }
-.ev .used { font-size: 13px; color: var(--fg); font-weight: 500; }
-@media (max-width: 900px) { .ev-grid { grid-template-columns: 1fr; } }
 .why { margin-top: 64px; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.3fr); gap: 32px; align-items: start; }
 .why h2 { font-size: 32px; font-weight: 700; }
 .why ul { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 22px; }
@@ -365,7 +353,7 @@ input[type=range] { accent-color: var(--accent); }
         <svg class="ill" viewBox="0 0 120 56" aria-hidden="true"><g fill="none" stroke="var(--fg-3)" stroke-width="2"><circle cx="10" cy="28" r="7"/><circle cx="40" cy="28" r="7"/><circle cx="70" cy="28" r="7"/><circle cx="100" cy="28" r="7"/><path d="M17 28h16M47 28h16M77 28h16"/></g><circle cx="10" cy="28" r="7" fill="var(--signal)"/></svg>
         <div class="num">10</div>
         <h3>étapes de lecture</h3>
-        <p>Nommer le QRS, puis VIP, rythme, fréquence, axe, P, PR, QRS, ST, T, QT. Normes selon l'âge.</p>
+        <p>VIP, rythme, fréquence, axe, P, PR, QRS, ST, T, QT. Normes selon l'âge.</p>
         <span class="go">Ouvrir ›</span>
       </button>
       <button class="tile" data-go="simulateur">
@@ -405,17 +393,7 @@ input[type=range] { accent-color: var(--accent); }
       </button>
     </div>
 
-    <div class="evidence">
-      <h2>Fondements pédagogiques</h2>
-      <div class="ev-grid">
-        <div class="ev"><h4>Approche systématique</h4><p>Méta-analyse de 59 études (17 251 apprenants) : enseigner une lecture systématique a l'effet le plus important (SMD 0,92). Le travail en groupe et entre pairs fait mieux que le travail individuel.</p><span class="used">→ Méthode en 10 étapes, réflexion en binôme</span><span class="ref"><a href="https://cris.maastrichtuniversity.nl/en/publications/physician-training-for-electrocardiogram-interpretation-a-systema/" target="_blank" rel="noopener">Oh SY, Cook DA, et al. Acad Med 2022;97(4):593-602</a></span></div>
-        <div class="ev"><h4>Pratique mélangée</h4><p>Des étudiants entraînés sur des ECG de catégories mélangées ont obtenu 46 à 47 % de bonnes réponses, contre 30 % quand chaque catégorie était travaillée en bloc.</p><span class="used">→ Ordre des cas mélangé par défaut</span><span class="ref">Hatala RM, Brooks LR, Norman GR. Adv Health Sci Educ 2003;8:17-26</span></div>
-        <div class="ev"><h4>Pratique délibérée</h4><p>Courbe d'apprentissage : environ 34 tracés commentés pour atteindre 75 % de réussite à l'examen (modèle). 95 % des étudiants jugent le feedback immédiat nécessaire ou utile.</p><span class="used">→ Correction et critères affichés à chaque cas</span><span class="ref"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6737266" target="_blank" rel="noopener">Waechter J, et al. GMS J Med Educ 2019;36(4):Doc40</a></span></div>
-        <div class="ev"><h4>Simulation des erreurs d'électrodes</h4><p>Un simulateur web de malposition d'électrodes, ajouté au cours magistral, a amélioré les scores d'environ 30 % (petit effectif : 17 étudiants évalués).</p><span class="used">→ Simulateur glisser-déposer</span><span class="ref"><a href="https://pure.ulster.ac.uk/en/publications/the-utility-of-a-12-lead-ecg-electrode-misplacement-simulator-in--3/" target="_blank" rel="noopener">Bond RR, et al. J Electrocardiol 2011 (ISCE)</a></span></div>
-        <div class="ev"><h4>Répétition espacée</h4><p>Des quiz ECG espacés (récupération active) ont amélioré les scores d'externes par rapport aux groupes contrôles.</p><span class="used">→ « Revoir les erreurs » en fin de séance</span><span class="ref"><a href="https://scholars.uthscsa.edu/es/publications/the-spacing-effect-improving-electrocardiogram-interpretation/" target="_blank" rel="noopener">Cunningham JM, et al. Clin Teach 2024;21(1):e13626</a></span></div>
-        <div class="ev"><h4>IA générative</h4><p>Face à des images d'ECG sans choix de réponses, ChatGPT-4V n'a posé le bon diagnostic que dans 7 réponses sur 57. Le coach de la plateforme ne voit pas le tracé : il s'appuie sur votre corrigé.</p><span class="used">→ Coach socratique ancré sur le corrigé</span><span class="ref"><a href="https://www.jmir.org/2024/1/e54607" target="_blank" rel="noopener">Zhu L, et al. J Med Internet Res 2024;26:e54607</a></span></div>
-      </div>
-    </div>
+    <article class="card step-card home-qrs" id="homeQrs" aria-label="Nommer le QRS"></article>
 
     <div class="why">
       <div>
@@ -1372,12 +1350,11 @@ ECGModel.calibrate(SIM_STD());
 })();
 
 // ===================== MÉTHODE =====================
-const M_STATE = { step: store.get('step', -1), age: store.get('age', 5) };   // étape −1 : « Nommer le QRS » (js/qrs.js)
+const M_STATE = { step: Math.max(0, store.get('step', 0)), age: store.get('age', 5) };
 const ageM = () => AGES[M_STATE.age].m;
 
 function initMethod() {
   const nav = $('#stepsNav'); nav.innerHTML = '';
-  nav.append(h('button', { class: 'step-link', 'data-i': -1, onclick: () => showStep(-1) }, h('span', { class: 'n q' }, 'Aa'), h('span', null, 'Nommer le QRS')));
   STEPS.forEach((s, i) => nav.append(h('button', { class: 'step-link', 'data-i': i, onclick: () => showStep(i) }, h('span', { class: 'n' }, i + 1), h('span', null, s.t))));
   const sl = $('#ageSlider'); sl.max = AGES.length - 1; sl.value = M_STATE.age;
   const upd = () => { M_STATE.age = +sl.value; store.set('age', M_STATE.age); $('#ageVal').textContent = AGES[M_STATE.age].l; showStep(M_STATE.step, true); };
@@ -1387,14 +1364,9 @@ function initMethod() {
 
 let stepCleanup = null;
 function showStep(i, keepScroll) {
-  i = clamp(i, -1, STEPS.length - 1); M_STATE.step = i; store.set('step', i);
+  i = clamp(i, 0, STEPS.length - 1); M_STATE.step = i; store.set('step', i);
   $$('#stepsNav .step-link').forEach(b => { const k = +b.dataset.i; b.setAttribute('aria-current', k === i ? 'true' : 'false'); b.classList.toggle('done', k < i); });
   const card = $('#stepCard'); stepCleanup?.(); stepCleanup = null; card.innerHTML = '';
-  if (i === -1) {   // introduction : nommer les ondes du QRS
-    stepCleanup = QRSNAME.render(card, { onNext: () => showStep(0) });
-    if (!keepScroll) { const top = card.getBoundingClientRect().top + window.scrollY - 80; if (window.scrollY > top) window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' }); }
-    return;
-  }
   const s = STEPS[i];
   card.append(
     h('div', { class: 'section-head', style: 'margin:0' },
@@ -1412,7 +1384,7 @@ function showStep(i, keepScroll) {
   if (s.fig) card.append(h('figure', { class: 'fig' }, h('img', { src: `img/${s.fig.img}.jpg`, alt: s.fig.cap, loading: 'lazy', onclick: () => openViewer(s.fig.img) }), h('figcaption', null, s.fig.cap, ' Cliquez pour agrandir.')));
   if (s.pit?.length) card.append(h('div', { class: 'pitfall' }, h('b', null, 'Pièges. '), s.pit.join(' ')));
   card.append(h('div', { class: 'step-foot' },
-    h('button', { class: 'btn secondary', onclick: () => showStep(i - 1) }, '‹ ', i > 0 ? STEPS[i - 1].t : 'Nommer le QRS'),
+    h('button', { class: 'btn secondary', disabled: i === 0 ? true : null, onclick: () => showStep(i - 1) }, '‹ ', i > 0 ? STEPS[i - 1].t : 'Début'),
     i < STEPS.length - 1 ? h('button', { class: 'btn', onclick: () => showStep(i + 1) }, STEPS[i + 1].t, ' ›') : h('button', { class: 'btn', onclick: () => go('cas') }, 'Passer aux cas cliniques ›')));
   if (!keepScroll) { const top = card.getBoundingClientRect().top + window.scrollY - 80; if (window.scrollY > top) window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' }); }
 }
@@ -2262,7 +2234,8 @@ document.addEventListener('keydown', e => {
   if (viewerOpen) { if (k === 'Escape' || k.toLowerCase() === 'z') { closeViewer(); e.preventDefault(); } else if (k === '+' || k === '=') zoomAt(1.25, $('#vStage').clientWidth / 2, $('#vStage').clientHeight / 2); else if (k === '-') zoomAt(0.8, $('#vStage').clientWidth / 2, $('#vStage').clientHeight / 2); return; }
   if (k === 'f' || k === 'F') { toggleFullscreen(); return; }
   if (viewKeys[currentView]) { viewKeys[currentView](e); return; }
-  if (currentView === 'methode') { if (M_STATE.step === -1 && QRSNAME.key(e)) return; if (k === 'ArrowRight') { showStep(M_STATE.step + 1); e.preventDefault(); } if (k === 'ArrowLeft') { showStep(M_STATE.step - 1); e.preventDefault(); } return; }
+  if (currentView === 'accueil' && QRSNAME.key(e)) return;
+  if (currentView === 'methode') { if (k === 'ArrowRight') { showStep(M_STATE.step + 1); e.preventDefault(); } if (k === 'ArrowLeft') { showStep(M_STATE.step - 1); e.preventDefault(); } return; }
   if (currentView === 'cas' && C.idx >= 0) {
     if (k === 'ArrowRight' && C.idx < C.order.length - 1) openCase(C.idx + 1);
     else if (k === 'ArrowLeft' && C.idx > 0) openCase(C.idx - 1);
